@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{F6A02BF8-2A74-422F-A951-4D60F301EA81}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Ex05.FormUI</RootNamespace>
     <AssemblyName>Ex05.FormUI</AssemblyName>
@@ -32,8 +32,39 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FormGameboard.cs" />
+    <Compile Include="FormGameSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormGameSettings.Designer.cs">
+      <DependentUpon>FormGameSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GameBoard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FormGameSettings.resx">
+      <DependentUpon>FormGameSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GameBoard.resx">
+      <DependentUpon>GameBoard.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
