@@ -1,6 +1,6 @@
 ﻿namespace Ex05.FormUI
 {
-    partial class FormGameSettings
+    partial class FormSettings
     {
         /// <summary>
         /// Required designer variable.
@@ -171,7 +171,6 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "Game Settings";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormGameSettings_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
