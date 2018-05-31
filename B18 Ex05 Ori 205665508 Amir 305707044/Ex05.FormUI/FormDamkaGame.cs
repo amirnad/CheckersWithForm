@@ -75,12 +75,27 @@ namespace Ex05.FormUI
             {
                 for (int col = 0; col < boardDim; col++)
                 {
-                    m_GameButtonsBoard[row, col] = new Button();
-                    m_GameButtonsBoard[row, col].Width = buttonWidth;
-                    m_GameButtonsBoard[row, col].Height = buttonHeight;
-                    m_GameButtonsBoard[row, col].Text = string.Format("({0},{1})", row, col);
-                    m_GameButtonsBoard[row, col].Location = new Point(startLeft + col * buttonWidth, startHeight + row * buttonHeight);
+                   m_GameButtonsBoard[row, col] = new Button();
+                   m_GameButtonsBoard[row, col].Width = buttonWidth;
+                   m_GameButtonsBoard[row, col].Height = buttonHeight;
+                   m_GameButtonsBoard[row, col].Text = string.Format("({0},{1})", row, col);
+                   m_GameButtonsBoard[row, col].Location = new Point(startLeft + col * buttonWidth, startHeight + row * buttonHeight);
+                    if (row % 2 == 0)
+                    {
+                        if (col % 2 == 0)
+                        {
+                            m_GameButtonsBoard[row, col].Enabled = false;
+                        }
+                    }
+                    if (row % 2 == 1)
+                    {
+                        if (col % 2 == 1)
+                        {
+                            m_GameButtonsBoard[row, col].Enabled = false;
+                        }
+                    }
                     this.Controls.Add(m_GameButtonsBoard[row, col]);
+
                 }
                 startHeight++;
             }
@@ -118,6 +133,7 @@ namespace Ex05.FormUI
             this.Controls.Add(this.m_Player2Label);
             this.Controls.Add(this.m_Player1Label);
             this.Name = "FormDamkaGame";
+            this.Text = "FormDamkaGame";
             this.ResumeLayout(false);
 
         }
