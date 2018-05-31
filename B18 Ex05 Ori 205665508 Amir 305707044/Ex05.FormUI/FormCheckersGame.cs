@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+using Ex05.CheckersLogic;
 
 namespace Ex05.FormUI
 {
-    public class FormDamkaGame : Form
+    public class FormCheckersGame : Form
     {
         private const string k_SettingsOk = "Settings were set, Enjoy Your Game!";
         private const string k_SettingsBad = "Invalid game settings, Try Again!";
@@ -23,14 +24,23 @@ namespace Ex05.FormUI
         private Label m_Player1Label;
         private Label m_Player2Label;
         private Button[,] m_GameButtonsBoard;
+        private GameBoard m_CheckersSoldiersBoard = new GameBoard();
         private FormSettings m_Settings = new FormSettings();
-        
-        public FormDamkaGame()
+
+        public FormCheckersGame()
         {
             ensureGameSettingsOk();
             boardDim = (int)m_Settings.BoardSize;
-            initializeBoard();
+            initializeButtonsBoard();
+            initializeGameEngine();
         }
+
+        
+        public FormSettings GameSettings
+        {
+            get { return m_Settings; }
+        }
+
 
         private void ensureGameSettingsOk()
         {
@@ -67,7 +77,23 @@ namespace Ex05.FormUI
             }
         }
 
-        public void initializeBoard()
+        public void initializeGameEngine()
+        {
+            InitialGameSetting initialSettings = new InitialGameSetting();
+
+            string player1Name = m_Settings.Player1Name;
+            string player2Name = m_Settings.Player2Name;
+            eBoardSizeOptions boardSize = m_Settings.BoardSize;
+            eTypeOfGame gameType = m_Settings.DoublePlayer ? eTypeOfGame.doublePlayer : eTypeOfGame.singlePlayer;
+
+            initialSettings.SetGameSettings(player1Name, player2Name, boardSize, gameType);
+            SessionData.InitializeSessionData(initialSettings);
+            SessionData.InitializePlayers(initialSettings);
+            m_CheckersSoldiersBoard.InitializeCheckersBoard();
+
+        }
+
+        private void initializeButtonsBoard()
         {
             InitializeComponent();
             m_GameButtonsBoard = new Button[boardDim, boardDim];
@@ -75,16 +101,17 @@ namespace Ex05.FormUI
             {
                 for (int col = 0; col < boardDim; col++)
                 {
-                   m_GameButtonsBoard[row, col] = new Button();
-                   m_GameButtonsBoard[row, col].Width = buttonWidth;
-                   m_GameButtonsBoard[row, col].Height = buttonHeight;
-                   m_GameButtonsBoard[row, col].Text = string.Format("({0},{1})", row, col);
-                   m_GameButtonsBoard[row, col].Location = new Point(startLeft + col * buttonWidth, startHeight + row * buttonHeight);
+                    m_GameButtonsBoard[row, col] = new Button();
+                    m_GameButtonsBoard[row, col].Width = buttonWidth;
+                    m_GameButtonsBoard[row, col].Height = buttonHeight;
+                    m_GameButtonsBoard[row, col].Text = string.Format("({0},{1})", row, col);
+                    m_GameButtonsBoard[row, col].Location = new System.Drawing.Point(startLeft + col * buttonWidth, startHeight + row * buttonHeight);
                     if (row % 2 == 0)
                     {
                         if (col % 2 == 0)
                         {
                             m_GameButtonsBoard[row, col].Enabled = false;
+                            m_GameButtonsBoard[row, col].BackColor = Color.DimGray;
                         }
                     }
                     if (row % 2 == 1)
@@ -92,6 +119,7 @@ namespace Ex05.FormUI
                         if (col % 2 == 1)
                         {
                             m_GameButtonsBoard[row, col].Enabled = false;
+                            m_GameButtonsBoard[row, col].BackColor = Color.DimGray;
                         }
                     }
                     this.Controls.Add(m_GameButtonsBoard[row, col]);

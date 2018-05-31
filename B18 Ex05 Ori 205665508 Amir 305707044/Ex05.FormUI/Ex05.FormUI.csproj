@@ -47,13 +47,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CheckersGameManager.cs" />
     <Compile Include="FormSettings.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormSettings.Designer.cs">
       <DependentUpon>FormSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormDamkaGame.cs">
+    <Compile Include="FormCheckersGame.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Program.cs" />
@@ -62,9 +63,15 @@
     <EmbeddedResource Include="FormSettings.resx">
       <DependentUpon>FormSettings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormDamkaGame.resx">
-      <DependentUpon>FormDamkaGame.cs</DependentUpon>
+    <EmbeddedResource Include="FormCheckersGame.resx">
+      <DependentUpon>FormCheckersGame.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ex05.CheckersLogic\Ex05.CheckersLogic.csproj">
+      <Project>{0d0aa951-f1df-4790-af88-6af1b1d1cb41}</Project>
+      <Name>Ex05.CheckersLogic</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

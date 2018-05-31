@@ -7,17 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Ex05.CheckersLogic;
 
 namespace Ex05.FormUI
 {
-    public enum eBoardSize { Small = 6, Medium = 8, Large = 10 };
 
     public partial class FormSettings : Form
     {
 
-
-        private eBoardSize m_Size = eBoardSize.Medium; //Default value for boardsize
-        bool m_SettingsOk = false;
+        
+        private eBoardSizeOptions m_Size = eBoardSizeOptions.MediumBoard; //Default value for boardsize
 
         public FormSettings()
         {
@@ -38,7 +37,7 @@ namespace Ex05.FormUI
         {
             get { return checkBox1.Checked; }
         }
-        public eBoardSize BoardSize
+        public eBoardSizeOptions BoardSize
         {
             get { return m_Size; }
         }
@@ -62,16 +61,16 @@ namespace Ex05.FormUI
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            m_Size = eBoardSize.Small;
+            m_Size = eBoardSizeOptions.SmallBoard;
         }
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
-            m_Size = eBoardSize.Medium;
+            m_Size = eBoardSizeOptions.MediumBoard;
         }
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
-            m_Size = eBoardSize.Large;
+            m_Size = eBoardSizeOptions.LargeBoard;
         }
 
         private void button2_Click(object sender, EventArgs e)

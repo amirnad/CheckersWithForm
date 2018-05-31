@@ -10,9 +10,8 @@ namespace Ex05.FormUI
     {
         public static void Main()
         {
-            FormDamkaGame fb = new FormDamkaGame();
-
-            fb.ShowDialog();
+            CheckersGameManager checkers = new CheckersGameManager();
+            checkers.RunGame();
         }
     }
 }
