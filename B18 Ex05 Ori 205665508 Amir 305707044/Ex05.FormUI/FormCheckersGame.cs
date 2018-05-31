@@ -23,7 +23,7 @@ namespace Ex05.FormUI
 
         private Label m_Player1Label;
         private Label m_Player2Label;
-        private Button[,] m_GameButtonsBoard;
+        private SoldierButton[,] m_GameButtonsBoard;
         private GameBoard m_CheckersSoldiersBoard = new GameBoard();
         private FormSettings m_Settings = new FormSettings();
 
@@ -96,15 +96,17 @@ namespace Ex05.FormUI
         private void initializeButtonsBoard()
         {
             InitializeComponent();
-            m_GameButtonsBoard = new Button[boardDim, boardDim];
+            m_GameButtonsBoard = new SoldierButton[boardDim, boardDim];
             for (int row = 0; row < boardDim; row++)
             {
                 for (int col = 0; col < boardDim; col++)
                 {
-                    m_GameButtonsBoard[row, col] = new Button();
+                    m_GameButtonsBoard[row, col] = new SoldierButton();
+                    m_GameButtonsBoard[row, col].Click += new EventHandler(button_Click);
                     m_GameButtonsBoard[row, col].Width = buttonWidth;
                     m_GameButtonsBoard[row, col].Height = buttonHeight;
                     m_GameButtonsBoard[row, col].Text = string.Format("({0},{1})", row, col);
+                    m_GameButtonsBoard[row, col].SoldierPosition = new Ex05.CheckersLogic.Point(col, row);
                     m_GameButtonsBoard[row, col].Location = new System.Drawing.Point(startLeft + col * buttonWidth, startHeight + row * buttonHeight);
                     if (row % 2 == 0)
                     {
@@ -127,6 +129,17 @@ namespace Ex05.FormUI
                 }
                 startHeight++;
             }
+        }
+
+        private void button_Click(object sender, EventArgs e)
+        {
+            SoldierButton theButton = sender as SoldierButton;
+            GameBoard.Soldier soldier = getSoldierFromButtonsBoard(theButton);
+        }
+
+        private GameBoard.Soldier getSoldierFromButtonsBoard(SoldierButton i_ButtonFromBoard)
+        {
+            return m_CheckersSoldiersBoard.GetSoldierFromMatrix(i_ButtonFromBoard.SoldierPosition);
         }
 
         private void InitializeComponent()
