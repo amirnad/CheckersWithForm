@@ -47,23 +47,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FormGameboard.cs" />
-    <Compile Include="FormGameSettings.cs">
+    <Compile Include="FormSettings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormGameSettings.Designer.cs">
-      <DependentUpon>FormGameSettings.cs</DependentUpon>
+    <Compile Include="FormSettings.Designer.cs">
+      <DependentUpon>FormSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameBoard.cs">
+    <Compile Include="FormDamkaGame.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FormGameSettings.resx">
-      <DependentUpon>FormGameSettings.cs</DependentUpon>
+    <EmbeddedResource Include="FormSettings.resx">
+      <DependentUpon>FormSettings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GameBoard.resx">
-      <DependentUpon>GameBoard.cs</DependentUpon>
+    <EmbeddedResource Include="FormDamkaGame.resx">
+      <DependentUpon>FormDamkaGame.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

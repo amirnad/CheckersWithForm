@@ -12,15 +12,14 @@ namespace Ex05.FormUI
 {
     public enum eBoardSize { Small = 6, Medium = 8, Large = 10 };
 
-    public partial class FormGameSettings : Form
+    public partial class FormSettings : Form
     {
-        private const string k_SettingsOk = "Settings were set, Enjoy Your Game!";
-        private const string k_SettingsBad = "Invalid game settings, Try Again!";
+
 
         private eBoardSize m_Size = eBoardSize.Medium; //Default value for boardsize
         bool m_SettingsOk = false;
 
-        public FormGameSettings()
+        public FormSettings()
         {
             InitializeComponent();
         }
@@ -77,46 +76,9 @@ namespace Ex05.FormUI
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (checkInput())
-            {
-                m_SettingsOk = true;
-                MessageBox.Show(k_SettingsOk);
-                this.DialogResult = DialogResult.OK;
-            }
-            else
-            {
-                m_SettingsOk = false;
-                MessageBox.Show(k_SettingsBad);
-                this.DialogResult = DialogResult.Retry;
-            }
+            this.DialogResult = DialogResult.OK;
+            this.Hide();
         }
 
-        private bool checkInput()
-        {
-            bool isInputValid = true;
-
-            if (Player1Name == string.Empty)
-            {
-                isInputValid = false;
-                if (DoublePlayer && Player2Name == string.Empty)
-                {
-                    isInputValid = false;
-                }
-            }
-            else
-            {
-                checkInput();
-            }
-
-            return isInputValid;
-        }
-
-        private void FormGameSettings_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (e.CloseReason == CloseReason.UserClosing)
-            {
-                e.Cancel = true;
-            }
-        }
     }
 }
