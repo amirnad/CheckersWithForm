@@ -139,7 +139,10 @@ namespace Ex05.FormUI
 
         private GameBoard.Soldier getSoldierFromButtonsBoard(SoldierButton i_ButtonFromBoard)
         {
-            return m_CheckersSoldiersBoard.GetSoldierFromMatrix(i_ButtonFromBoard.SoldierPosition);
+            i_ButtonFromBoard.BackColor = Color.LightBlue;
+            GameBoard.Soldier soldierToReturn = m_CheckersSoldiersBoard.GetSoldierFromMatrix(i_ButtonFromBoard.SoldierPosition);
+
+            return soldierToReturn;
         }
 
         private void InitializeComponent()
