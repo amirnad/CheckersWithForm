@@ -167,7 +167,7 @@ namespace Ex05.FormUI
                 {
                     m_clickNumber = eClickNumber.none;
                     backToGray(theButton.SoldierPosition);
-                    MessageBox.Show("Yamanyak hechnasta malach dricha");
+                    MessageBox.Show("current point isnt filled");
 
                 }
                 else
@@ -183,7 +183,7 @@ namespace Ex05.FormUI
                 {
                     m_clickNumber = eClickNumber.none;
                     backToGray(theButton.SoldierPosition);
-                    MessageBox.Show("Yamanyak hechnasta malach dricha");
+                    MessageBox.Show("destination positin is filled");
 
                 }
                 else
@@ -198,7 +198,7 @@ namespace Ex05.FormUI
                     }
                     else
                     {
-                        MessageBox.Show("Yamanyak hechnasta malach dricha");
+                        MessageBox.Show("illegal move!");
                     }
 
                     backToGray(m_currentInSelectionMove.CurrentPosition);
