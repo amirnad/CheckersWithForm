@@ -119,6 +119,17 @@ namespace Ex05.FormUI
                             m_GameButtonsBoard[row, col].Enabled = false;
                             m_GameButtonsBoard[row, col].BackColor = Color.DimGray;
                         }
+                        else
+                        {
+                            if(row<boardDim/2-1)
+                            {
+                            m_GameButtonsBoard[row, col].Text = "Player2";
+                            }
+                            if (row > boardDim / 2)
+                            {
+                                m_GameButtonsBoard[row, col].Text = "Player1";
+                            }
+                        }
                     }
                     if (row % 2 == 1)
                     {
@@ -126,6 +137,17 @@ namespace Ex05.FormUI
                         {
                             m_GameButtonsBoard[row, col].Enabled = false;
                             m_GameButtonsBoard[row, col].BackColor = Color.DimGray;
+                        }
+                        else
+                        {
+                            if (row < boardDim / 2 - 1)
+                            {
+                                m_GameButtonsBoard[row, col].Text = "Player2";
+                            }
+                            if (row > boardDim / 2)
+                            {
+                                m_GameButtonsBoard[row, col].Text = "Player1";
+                            }
                         }
                     }
                     this.Controls.Add(m_GameButtonsBoard[row, col]);
@@ -202,10 +224,10 @@ namespace Ex05.FormUI
 
 
 
-            SoldierButton tempButtonForSwap = new SoldierButton();
-            tempButtonForSwap.Location = m_GameButtonsBoard[currentY, currentX].Location;
-            m_GameButtonsBoard[currentY, currentX].Location = m_GameButtonsBoard[requestedY, requestedX].Location;
-            m_GameButtonsBoard[requestedY, requestedX].Location = tempButtonForSwap.Location;
+            string tempButtonTextForSwap = string.Empty;
+            tempButtonTextForSwap = m_GameButtonsBoard[currentY, currentX].Text;
+            m_GameButtonsBoard[currentY, currentX].Text = m_GameButtonsBoard[requestedY, requestedX].Text;
+            m_GameButtonsBoard[requestedY, requestedX].Text = tempButtonTextForSwap;
             this.Refresh();
 
 
