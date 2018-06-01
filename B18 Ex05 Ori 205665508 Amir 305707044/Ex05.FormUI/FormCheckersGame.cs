@@ -13,7 +13,6 @@ namespace Ex05.FormUI
     {
         private const string k_SettingsOk = "Settings were set, Enjoy Your Game!";
         private const string k_SettingsBad = "Invalid game settings, Try Again!";
-
         private bool m_GameSetProperly = false;
         private readonly int boardDim;
         private const int buttonWidth = 60;
@@ -27,6 +26,11 @@ namespace Ex05.FormUI
         private GameBoard m_CheckersSoldiersBoard = new GameBoard();
         private FormSettings m_Settings = new FormSettings();
 
+        private enum eClickNumber { none, first, second }
+        private eClickNumber m_clickNumber;
+        private CheckersGameStep m_currentInSelectionMove = new CheckersGameStep();
+
+
         public FormCheckersGame()
         {
             ensureGameSettingsOk();
@@ -35,7 +39,7 @@ namespace Ex05.FormUI
             initializeGameEngine();
         }
 
-        
+
         public FormSettings GameSettings
         {
             get { return m_Settings; }
@@ -135,6 +139,76 @@ namespace Ex05.FormUI
         {
             SoldierButton theButton = sender as SoldierButton;
             GameBoard.Soldier soldier = getSoldierFromButtonsBoard(theButton);
+            if (m_clickNumber == eClickNumber.none)
+            {
+                if (soldier == null)
+                {
+                    m_clickNumber = eClickNumber.none;
+                    backToGray(theButton.SoldierPosition);
+                    MessageBox.Show("Yamanyak hechnasta malach dricha");
+
+                }
+                else
+                {
+                    m_clickNumber = eClickNumber.first;
+                    m_currentInSelectionMove.CurrentPosition = soldier.Position;
+                }
+            }
+            else if (m_clickNumber == eClickNumber.first)
+            {
+
+                if (soldier != null)
+                {
+                    m_clickNumber = eClickNumber.none;
+                    backToGray(theButton.SoldierPosition);
+                    MessageBox.Show("Yamanyak hechnasta malach dricha");
+
+                }
+                else
+                {
+
+                    m_currentInSelectionMove.RequestedPosition = theButton.SoldierPosition;
+                    m_currentInSelectionMove.MoveTypeInfo = m_CheckersSoldiersBoard.SortMoveType(m_currentInSelectionMove, SessionData.GetCurrentPlayer());
+                    if (m_currentInSelectionMove.MoveTypeInfo.TypeIndicator != eMoveTypes.Undefined)
+                    {
+                        SessionData.GetCurrentPlayer().MakeAMove(m_currentInSelectionMove, m_CheckersSoldiersBoard);
+                        moveOnScreen(m_currentInSelectionMove);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Yamanyak hechnasta malach dricha");
+                    }
+
+                    backToGray(m_currentInSelectionMove.CurrentPosition);
+                    backToGray(m_currentInSelectionMove.RequestedPosition);
+                    m_clickNumber = eClickNumber.none;
+                }
+
+            }
+        }
+
+        private void backToGray(CheckersLogic.Point i_Position)
+        {
+            m_GameButtonsBoard[i_Position.YCooord, i_Position.XCoord].BackColor = Color.Gainsboro;
+        }
+
+        private void moveOnScreen(CheckersGameStep i_currentInSelectionMove)
+        {
+            int currentX = m_currentInSelectionMove.CurrentPosition.XCoord;
+            int currentY = m_currentInSelectionMove.CurrentPosition.YCooord;
+
+            int requestedX = m_currentInSelectionMove.RequestedPosition.XCoord;
+            int requestedY = m_currentInSelectionMove.RequestedPosition.YCooord;
+
+
+
+            SoldierButton tempButtonForSwap = new SoldierButton();
+            tempButtonForSwap.Location = m_GameButtonsBoard[currentY, currentX].Location;
+            m_GameButtonsBoard[currentY, currentX].Location = m_GameButtonsBoard[requestedY, requestedX].Location;
+            m_GameButtonsBoard[requestedY, requestedX].Location = tempButtonForSwap.Location;
+            this.Refresh();
+
+
         }
 
         private GameBoard.Soldier getSoldierFromButtonsBoard(SoldierButton i_ButtonFromBoard)
