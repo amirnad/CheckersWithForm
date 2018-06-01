@@ -183,8 +183,11 @@ namespace Ex05.FormUI
                 {
                     m_clickNumber = eClickNumber.none;
                     backToGray(theButton.SoldierPosition);
-                    MessageBox.Show("destination positin is filled");
-
+                    backToGray(m_currentInSelectionMove.CurrentPosition);
+                    if (theButton.SoldierPosition.XCoord != m_currentInSelectionMove.CurrentPosition.XCoord || theButton.SoldierPosition.YCooord != m_currentInSelectionMove.CurrentPosition.YCooord)
+                    {
+                        MessageBox.Show("destination positin is filled");
+                    }
                 }
                 else
                 {
@@ -230,7 +233,7 @@ namespace Ex05.FormUI
             m_GameButtonsBoard[currentY, currentX].Text = m_GameButtonsBoard[requestedY, requestedX].Text;
             m_GameButtonsBoard[requestedY, requestedX].Text = tempButtonTextForSwap;
             Refresh();
-            
+
             if (i_currentInSelectionMove.MoveTypeInfo.TypeIndicator == eMoveTypes.EatMove)
             {
                 CheckersLogic.Point eatenSoldierPosition = m_CheckersSoldiersBoard.calculatePositionOfEatenSoldier(i_currentInSelectionMove);
