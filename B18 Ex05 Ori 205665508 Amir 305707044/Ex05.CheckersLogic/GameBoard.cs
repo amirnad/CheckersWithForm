@@ -419,7 +419,7 @@ namespace Ex05.CheckersLogic
         }
 
 
-        private Point calculatePositionOfEatenSoldier(CheckersGameStep i_move)
+        public Point calculatePositionOfEatenSoldier(CheckersGameStep i_move)//chnaged to publc becuse i wanted to use this function to calculate the position of eaten soldier in the matrix form
         {
 
             Point resultPosition = new Point();

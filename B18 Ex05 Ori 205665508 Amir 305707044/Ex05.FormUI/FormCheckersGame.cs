@@ -121,9 +121,9 @@ namespace Ex05.FormUI
                         }
                         else
                         {
-                            if(row<boardDim/2-1)
+                            if (row < boardDim / 2 - 1)
                             {
-                            m_GameButtonsBoard[row, col].Text = "Player2";
+                                m_GameButtonsBoard[row, col].Text = "Player2";
                             }
                             if (row > boardDim / 2)
                             {
@@ -229,10 +229,26 @@ namespace Ex05.FormUI
             tempButtonTextForSwap = m_GameButtonsBoard[currentY, currentX].Text;
             m_GameButtonsBoard[currentY, currentX].Text = m_GameButtonsBoard[requestedY, requestedX].Text;
             m_GameButtonsBoard[requestedY, requestedX].Text = tempButtonTextForSwap;
-            this.Refresh();
+            Refresh();
+            
+            if (i_currentInSelectionMove.MoveTypeInfo.TypeIndicator == eMoveTypes.EatMove)
+            {
+                CheckersLogic.Point eatenSoldierPosition = m_CheckersSoldiersBoard.calculatePositionOfEatenSoldier(i_currentInSelectionMove);
+
+                int EatenSoldierX = eatenSoldierPosition.XCoord;
+                int EatenSoldierY = eatenSoldierPosition.YCooord;
+
+                SoldierButton eatenSoldier = m_GameButtonsBoard[EatenSoldierY, EatenSoldierX];
+                eatenSoldier.Text = "";
+
+            }
+
+
+
 
 
         }
+
 
         private GameBoard.Soldier getSoldierFromButtonsBoard(SoldierButton i_ButtonFromBoard)
         {
