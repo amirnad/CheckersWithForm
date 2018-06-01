@@ -193,6 +193,7 @@ namespace Ex05.FormUI
                     m_currentInSelectionMove.MoveTypeInfo = m_CheckersSoldiersBoard.SortMoveType(m_currentInSelectionMove, SessionData.GetCurrentPlayer());
                     if (m_currentInSelectionMove.MoveTypeInfo.TypeIndicator != eMoveTypes.Undefined)
                     {
+                        SessionData.GetCurrentPlayer().updateArmy(m_CheckersSoldiersBoard);
                         SessionData.GetCurrentPlayer().MakeAMove(m_currentInSelectionMove, m_CheckersSoldiersBoard);
                         moveOnScreen(m_currentInSelectionMove);
                     }
