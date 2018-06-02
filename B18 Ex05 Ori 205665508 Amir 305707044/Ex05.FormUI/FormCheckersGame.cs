@@ -13,6 +13,10 @@ namespace Ex05.FormUI
     {
         private const string k_SettingsOk = "Settings were set, Enjoy Your Game!";
         private const string k_SettingsBad = "Invalid game settings, Try Again!";
+        private const string k_currentActivePlayerTextLabel = "current active player:{0}";
+        private const string k_player1String = "player1";
+        private const string k_player2String = "player2";
+
         private bool m_GameSetProperly = false;
         private readonly int boardDim;
         private const int buttonWidth = 60;
@@ -22,6 +26,7 @@ namespace Ex05.FormUI
 
         private Label m_Player1Label;
         private Label m_Player2Label;
+        private Label m_Player3Label;
         private SoldierButton[,] m_GameButtonsBoard;
         private GameBoard m_CheckersSoldiersBoard = new GameBoard();
         private FormSettings m_Settings = new FormSettings();
@@ -29,6 +34,8 @@ namespace Ex05.FormUI
         private enum eClickNumber { none, first, second }
         private eClickNumber m_clickNumber;
         private CheckersGameStep m_currentInSelectionMove = new CheckersGameStep();
+
+        private CheckersLogic.Player m_currentActivePlayer;
 
 
         public FormCheckersGame()
@@ -161,6 +168,8 @@ namespace Ex05.FormUI
         {
             SoldierButton theButton = sender as SoldierButton;
             GameBoard.Soldier soldier = getSoldierFromButtonsBoard(theButton);
+            m_currentActivePlayer = SessionData.GetCurrentPlayer();
+
             if (m_clickNumber == eClickNumber.none)
             {
                 if (soldier == null)
@@ -176,6 +185,7 @@ namespace Ex05.FormUI
                     m_currentInSelectionMove.CurrentPosition = soldier.Position;
                 }
             }
+
             else if (m_clickNumber == eClickNumber.first)
             {
 
@@ -192,12 +202,12 @@ namespace Ex05.FormUI
                 else
                 {
 
+                   m_currentActivePlayer.updateArmy(m_CheckersSoldiersBoard);
                     m_currentInSelectionMove.RequestedPosition = theButton.SoldierPosition;
-                    m_currentInSelectionMove.MoveTypeInfo = m_CheckersSoldiersBoard.SortMoveType(m_currentInSelectionMove, SessionData.GetCurrentPlayer());
+                    m_currentInSelectionMove.MoveTypeInfo = m_CheckersSoldiersBoard.SortMoveType(m_currentInSelectionMove, m_currentActivePlayer);
                     if (m_currentInSelectionMove.MoveTypeInfo.TypeIndicator != eMoveTypes.Undefined)
                     {
-                        SessionData.GetCurrentPlayer().updateArmy(m_CheckersSoldiersBoard);
-                        SessionData.GetCurrentPlayer().MakeAMove(m_currentInSelectionMove, m_CheckersSoldiersBoard);
+                        m_currentActivePlayer.MakeAMove(m_currentInSelectionMove, m_CheckersSoldiersBoard);
                         moveOnScreen(m_currentInSelectionMove);
                     }
                     else
@@ -232,6 +242,17 @@ namespace Ex05.FormUI
             tempButtonTextForSwap = m_GameButtonsBoard[currentY, currentX].Text;
             m_GameButtonsBoard[currentY, currentX].Text = m_GameButtonsBoard[requestedY, requestedX].Text;
             m_GameButtonsBoard[requestedY, requestedX].Text = tempButtonTextForSwap;
+
+            m_currentActivePlayer = SessionData.GetCurrentPlayer();
+            if(m_currentActivePlayer.Team == ePlayerOptions.Player1)
+            {
+                m_Player3Label.Text = string.Format(k_currentActivePlayerTextLabel, k_player1String);
+            }
+            else
+            {
+                m_Player3Label.Text = string.Format(k_currentActivePlayerTextLabel, k_player2String);
+            }
+
             Refresh();
 
             if (i_currentInSelectionMove.MoveTypeInfo.TypeIndicator == eMoveTypes.EatMove)
@@ -265,6 +286,8 @@ namespace Ex05.FormUI
         {
             this.m_Player1Label = new System.Windows.Forms.Label();
             this.m_Player2Label = new System.Windows.Forms.Label();
+            this.m_Player3Label = new System.Windows.Forms.Label();
+
             this.SuspendLayout();
             // 
             // label1
@@ -287,9 +310,20 @@ namespace Ex05.FormUI
             this.m_Player2Label.Text = "Player 2: 0";
             this.SuspendLayout();
             // 
+            // label3
+            // 
+            this.m_Player3Label.AutoSize = false;
+            this.m_Player3Label.Location = new System.Drawing.Point(260, 18);
+            this.m_Player3Label.Name = "label2";
+            this.m_Player3Label.Size = new System.Drawing.Size(150, 17);
+            this.m_Player3Label.TabIndex = 1;
+            this.m_Player3Label.Text = "current active player: player1";
+            this.SuspendLayout();
+            // 
             // FormDamkaGame
             // 
             this.ClientSize = new Size(startLeft * 2 + buttonWidth * boardDim, startHeight * 2 + buttonHeight * boardDim);// new System.Drawing.Size(282, 255);
+            this.Controls.Add(this.m_Player3Label);
             this.Controls.Add(this.m_Player2Label);
             this.Controls.Add(this.m_Player1Label);
             this.Name = "FormDamkaGame";
