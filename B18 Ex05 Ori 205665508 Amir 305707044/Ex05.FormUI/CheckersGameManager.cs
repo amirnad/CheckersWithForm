@@ -15,7 +15,7 @@ namespace Ex05.FormUI
 
         //public void InitializeCheckersGame()
         //{
-        //    InitialGameSetting initialSettings = new InitialGameSetting();
+        //    InitialGameSetting m_InitialSettings = new InitialGameSetting();
 
         //    FormSettings tempForm = fb.GameSettings;
         //    string player1Name = tempForm.Player1Name;
@@ -23,9 +23,9 @@ namespace Ex05.FormUI
         //    eBoardSizeOptions boardSize = tempForm.BoardSize;
         //    eTypeOfGame gameType = tempForm.DoublePlayer ? eTypeOfGame.doublePlayer : eTypeOfGame.singlePlayer;
 
-        //    initialSettings.SetGameSettings(player1Name, player2Name, boardSize, gameType);
-        //    SessionData.InitializeSessionData(initialSettings);
-        //    SessionData.InitializePlayers(initialSettings);
+        //    m_InitialSettings.SetGameSettings(player1Name, player2Name, boardSize, gameType);
+        //    SessionData.InitializeSessionData(m_InitialSettings);
+        //    SessionData.InitializePlayers(m_InitialSettings);
         //    m_CheckersSoldiersBoard.InitializeCheckersBoard();
 
         //}

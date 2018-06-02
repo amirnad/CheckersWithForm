@@ -544,6 +544,12 @@ namespace Ex05.CheckersLogic
             {
                 validity = false;
             }
+            if(validity && !i_currentActivePlayer.HasEatMoves() && CheckersGameStep.MoveType.CalculateMoveType(i_RequestedMove).TypeIndicator == eMoveTypes.EatMove)
+            {
+                validity = false;
+            }
+
+
             if (validity)
             {
                 result = CheckersGameStep.MoveType.CalculateMoveType(i_RequestedMove);
