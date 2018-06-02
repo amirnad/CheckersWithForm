@@ -94,21 +94,30 @@ namespace Ex05.CheckersLogic
             Random stepToExecuteIndex = new Random();
             CheckersGameStep returnedStep = new CheckersGameStep();
 
-            List<CheckersGameStep> arr = new List<CheckersGameStep>();
+            List<CheckersGameStep> eatMovementsArr = new List<CheckersGameStep>();
+            List<CheckersGameStep> regularMovementsArr = new List<CheckersGameStep>();
+
             foreach (GameBoard.Soldier s in m_PlayerArmy)
             {
                 foreach (CheckersGameStep step in s.m_PossibleEatMovements)
                 {
-                    arr.Add(step);
+                    eatMovementsArr.Add(step);
                 }
                 foreach (CheckersGameStep step in s.m_PossibleRegularMovements)
                 {
-                    arr.Add(step);
+                    regularMovementsArr.Add(step);
                 }
 
-                returnedStep = arr[stepToExecuteIndex.Next(arr.Count)];
 
 
+            }
+            if(eatMovementsArr.Count > 0)
+            {
+            returnedStep = eatMovementsArr[stepToExecuteIndex.Next(eatMovementsArr.Count)];
+            }
+            else
+            {
+            returnedStep = regularMovementsArr[stepToExecuteIndex.Next(eatMovementsArr.Count)];
             }
             return returnedStep;
         }

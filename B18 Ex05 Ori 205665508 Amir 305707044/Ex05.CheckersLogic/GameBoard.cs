@@ -10,6 +10,7 @@ namespace Ex05.CheckersLogic
 
         public class Soldier
         {
+
             private static Point nextPointToFillPlayer1;
             private static Point nextPointToFillPlayer2;
             private Point m_CoordinateInMatrix;

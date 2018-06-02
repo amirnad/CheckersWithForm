@@ -36,7 +36,7 @@ namespace Ex05.FormUI
         private CheckersGameStep m_currentInSelectionMove = new CheckersGameStep();
 
         private CheckersLogic.Player m_currentActivePlayer;
-
+        private eGameState m_gameState;
 
         public FormCheckersGame()
         {
@@ -202,13 +202,18 @@ namespace Ex05.FormUI
                 else
                 {
 
-                   m_currentActivePlayer.updateArmy(m_CheckersSoldiersBoard);
+                    m_currentActivePlayer.updateArmy(m_CheckersSoldiersBoard);
                     m_currentInSelectionMove.RequestedPosition = theButton.SoldierPosition;
                     m_currentInSelectionMove.MoveTypeInfo = m_CheckersSoldiersBoard.SortMoveType(m_currentInSelectionMove, m_currentActivePlayer);
                     if (m_currentInSelectionMove.MoveTypeInfo.TypeIndicator != eMoveTypes.Undefined)
                     {
                         m_currentActivePlayer.MakeAMove(m_currentInSelectionMove, m_CheckersSoldiersBoard);
                         moveOnScreen(m_currentInSelectionMove);
+                        m_gameState = SessionData.checkGameState();
+                        if (m_gameState == eGameState.KeepGoing)
+                        {
+                            EndGame();
+                        }
                     }
                     else
                     {
@@ -218,9 +223,40 @@ namespace Ex05.FormUI
                     backToGray(m_currentInSelectionMove.CurrentPosition);
                     backToGray(m_currentInSelectionMove.RequestedPosition);
                     m_clickNumber = eClickNumber.none;
+
+                    if(m_currentActivePlayer.Team == ePlayerOptions.ComputerPlayer)
+                    {
+                        m_currentActivePlayer.updateArmy(m_CheckersSoldiersBoard);
+                        m_currentInSelectionMove = m_currentActivePlayer.GetRandomMoveForPc();
+                        //same as 15 rows up need to seperate into function
+                        m_currentActivePlayer.MakeAMove(m_currentInSelectionMove, m_CheckersSoldiersBoard);
+                        moveOnScreen(m_currentInSelectionMove);
+                        m_gameState = SessionData.checkGameState();
+                        if (m_gameState != eGameState.KeepGoing)
+                        {
+                            EndGame();
+                        }
+                    }
                 }
 
             }
+        }
+
+        private void EndGame()
+        {
+            SessionData.CalculateScore(m_gameState);
+          //  PrintGameResult(m_gameState);
+        //    m_gameState = CheckIfPlayerWantsAnotherGame();
+        }
+
+        private eGameState CheckIfPlayerWantsAnotherGame()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void PrintGameResult(eGameState i_gameState)
+        {
+            throw new NotImplementedException();
         }
 
         private void backToGray(CheckersLogic.Point i_Position)
@@ -244,7 +280,7 @@ namespace Ex05.FormUI
             m_GameButtonsBoard[requestedY, requestedX].Text = tempButtonTextForSwap;
 
             m_currentActivePlayer = SessionData.GetCurrentPlayer();
-            if(m_currentActivePlayer.Team == ePlayerOptions.Player1)
+            if (m_currentActivePlayer.Team == ePlayerOptions.Player1)
             {
                 m_Player3Label.Text = string.Format(k_currentActivePlayerTextLabel, k_player1String);
             }
