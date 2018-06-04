@@ -101,7 +101,7 @@
             }
             else
             {
-                if (!s_Player1.ThereIsPossibleMovements() && !s_Player2.ThereIsPossibleMovements())
+                if (!s_Player1.ThereIsPossibleMovements() || !s_Player2.ThereIsPossibleMovements())
                 {
                     resultState = eGameState.Tie;
                 }

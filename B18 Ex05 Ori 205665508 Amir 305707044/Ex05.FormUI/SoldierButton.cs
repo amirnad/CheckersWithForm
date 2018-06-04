@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+
 namespace Ex05.FormUI
 {
     public class SoldierButton : Button
@@ -16,7 +17,5 @@ namespace Ex05.FormUI
             get { return m_PositionInBoard; }
             set { m_PositionInBoard = value; }
         }
-
-
     }
 }

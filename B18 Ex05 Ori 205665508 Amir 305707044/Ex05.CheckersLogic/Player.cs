@@ -88,7 +88,6 @@ namespace Ex05.CheckersLogic
             }
         }
 
-
         public CheckersGameStep GetRandomMoveForPc()
         {
             Random stepToExecuteIndex = new Random();
@@ -103,22 +102,22 @@ namespace Ex05.CheckersLogic
                 {
                     eatMovementsArr.Add(step);
                 }
+
                 foreach (CheckersGameStep step in s.m_PossibleRegularMovements)
                 {
                     regularMovementsArr.Add(step);
                 }
-
-
-
             }
-            if(eatMovementsArr.Count > 0)
+
+            if (eatMovementsArr.Count > 0)
             {
-            returnedStep = eatMovementsArr[stepToExecuteIndex.Next(eatMovementsArr.Count)];
+                returnedStep = eatMovementsArr[stepToExecuteIndex.Next(eatMovementsArr.Count)];
             }
-            else
+            else if (regularMovementsArr.Count > 0)
             {
-            returnedStep = regularMovementsArr[stepToExecuteIndex.Next(eatMovementsArr.Count)];
+                returnedStep = regularMovementsArr[stepToExecuteIndex.Next(eatMovementsArr.Count)];
             }
+
             return returnedStep;
         }
 
@@ -154,7 +153,7 @@ namespace Ex05.CheckersLogic
         }
 
         // in make a move there is the logic of switcing turns
-        //the rule is that after MakeAMove() the player that is playing the next move will be in current player in sessionData class 
+        // the rule is that after MakeAMove() the player that is playing the next move will be in current player in sessionData class 
         public void MakeAMove(CheckersGameStep io_MoveToExecute, GameBoard io_CheckersBoard)
         {
             GameBoard.Soldier currentSoldierToMove = io_CheckersBoard.GetSoldierFromMatrix(io_MoveToExecute.CurrentPosition);
@@ -191,7 +190,7 @@ namespace Ex05.CheckersLogic
             bool someBodyAlive = false;
             foreach (GameBoard.Soldier s in m_PlayerArmy)
             {
-                if (s.m_PossibleEatMovements.Count != 0 || s.m_PossibleRegularMovements.Count != 0)
+                if (s.m_PossibleEatMovements.Count > 0 || s.m_PossibleRegularMovements.Count > 0)
                 {
                     someBodyAlive = true;
                     break;
@@ -200,8 +199,6 @@ namespace Ex05.CheckersLogic
 
             return someBodyAlive;
         }
-
-
 
         internal bool HasEatMoves()
         {

@@ -11,12 +11,11 @@ using Ex05.CheckersLogic;
 
 namespace Ex05.FormUI
 {
-
     public partial class FormSettings : Form
     {
+        private const eBoardSizeOptions m_DefaultSize = eBoardSizeOptions.MediumBoard;
 
-        
-        private eBoardSizeOptions m_Size = eBoardSizeOptions.MediumBoard; //Default value for boardsize
+        private eBoardSizeOptions m_Size = eBoardSizeOptions.MediumBoard; // Default value for boardsize
 
         public FormSettings()
         {
@@ -37,11 +36,24 @@ namespace Ex05.FormUI
         {
             get { return checkBox1.Checked; }
         }
+
         public eBoardSizeOptions BoardSize
         {
-            get { return m_Size; }
-        }
+            get
+            {
+                eBoardSizeOptions returnedSize;
+                if (this.DialogResult == DialogResult.Cancel)
+                {
+                    returnedSize = m_DefaultSize;
+                }
+                else
+                {
+                    returnedSize = m_Size;
+                }
 
+                return returnedSize;
+            }
+        }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
@@ -58,11 +70,11 @@ namespace Ex05.FormUI
             }
         }
 
-
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             m_Size = eBoardSizeOptions.SmallBoard;
         }
+
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
             m_Size = eBoardSizeOptions.MediumBoard;
@@ -78,6 +90,5 @@ namespace Ex05.FormUI
             this.DialogResult = DialogResult.OK;
             this.Hide();
         }
-
     }
 }

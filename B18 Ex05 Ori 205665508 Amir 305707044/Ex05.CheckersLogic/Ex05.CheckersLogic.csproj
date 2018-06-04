@@ -42,7 +42,9 @@
     <Compile Include="CheckersGameStep.cs" />
     <Compile Include="GameBoard.cs" />
     <Compile Include="InitialGameSetting.cs" />
-    <Compile Include="MovementType.cs" />
+    <Compile Include="MovementType.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Player.cs" />
     <Compile Include="point.cs" />
     <Compile Include="SessionData.cs" />
